@@ -9,32 +9,41 @@
 import Foundation
 import Moya
 
-
 enum MarvelAPIService {
+    
     case marvelChar(apiKey: String?, timeStamp: String?, hashKey: String?)
+    case marvelComm(charId: String, apiKey: String, timeStamp: String, hashKey: String)
 }
 
 extension MarvelAPIService: TargetType, AccessTokenAuthorizable {
     var authorizationType: AuthorizationType? {
         return .bearer
     }
-
+    
     var path: String {
         switch self {
         case .marvelChar:
             return "public/characters"
+        
+        case .marvelComm(let charId, let apiKey, let timeStamp, let hashKey):
+                    return "public/characters/\(charId)/comics"
         }
     }
     
-    
     var parameters: [String : Any]? {
-        
         switch self {
         case .marvelChar(let apiKey, let timeStamp, let hashKey):
             var parameters: [String: Any] = [:]
             if let apiKey = apiKey { parameters["apikey"] = apiKey }
             if let timeStamp = timeStamp { parameters["ts"] = timeStamp }
             if let hashKey = hashKey { parameters["hash"] = hashKey }
+            return parameters
+            
+        case .marvelComm(let charId, let apiKey, let timeStamp, let hashKey):
+            var parameters: [String: Any] = [:]
+                         parameters["apikey"] = apiKey
+                        parameters["ts"] = timeStamp
+                        parameters["hash"] = hashKey
             return parameters
         }
     }
@@ -57,6 +66,8 @@ extension MarvelAPIService: TargetType, AccessTokenAuthorizable {
 //            return .delete
 //        default:
 //            return .post
+        case .marvelComm:
+            return .get
         }
     }
     

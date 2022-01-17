@@ -9,15 +9,15 @@ import UIKit
 
 class CharacterDetailViewCell: UITableViewCell {
 
+    @IBOutlet weak var imgCommics: UIImageView!
+    @IBOutlet weak var lblCharComTitle: UILabel!
+    @IBOutlet weak var lblCharaterDetail: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

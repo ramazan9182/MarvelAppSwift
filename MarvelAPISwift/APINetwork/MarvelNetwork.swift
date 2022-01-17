@@ -22,15 +22,10 @@ struct MarvelNetwork {
         ) -> Cancellable {
 //        var pluginArray: [PluginType] = [NetworkLoggerPlugin(cURL: true)]
         let pluginArray: [PluginType] = [NetworkLoggerPlugin()]
-//        let accessTokenPlugin = AccessTokenPlugin(tokenClosure: {_ in (BeinConnectAPIManager.shared.token ?? "") })   
-
-        
+//        let accessTokenPlugin = AccessTokenPlugin(tokenClosure: {_ in (BeinConnectAPIManager.shared.token ?? "") })
 //        pluginArray.append(accessTokenPlugin)
-        
-        
         let provider = MoyaProvider<MarvelAPIService>(plugins: pluginArray)
-        
-        
+            
         return provider.request(target, completion: {  result in
             switch result {
             case let .success(response):
